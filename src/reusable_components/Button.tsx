@@ -4,7 +4,11 @@ type buttonProps = {
   handleClick: () => void;
 };
 
-const Button = ({ children, styleName, handleClick }: buttonProps) => {
+const Button = ({
+  children,
+  styleName,
+  handleClick,
+}: buttonProps): JSX.Element => {
   return (
     <button className={`${styleName}`} onClick={handleClick}>
       {children}
