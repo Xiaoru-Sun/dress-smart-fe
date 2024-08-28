@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import Button from "../reusable_components/Button";
+import Logo from "../components/Logo";
 
 const Landingpage = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Landingpage = () => {
         <span className="text-secondary text-4 ">Dress smart,</span> whatever
         the weather
       </h2>
+      <Logo></Logo>
       <Button styleName="mainButton" handleClick={handleButtonClick}>
         Enter
       </Button>
