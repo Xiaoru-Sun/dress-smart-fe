@@ -1,9 +1,13 @@
+import { Routes, Route } from "react-router-dom";
+import Landingpage from "./pages/Landingpage";
+import SignIn from "./pages/SignIn";
+
 function App() {
   return (
-    <>
-      <h1 className={`${test}`}>Hello world!</h1>
-      <h2 className="bg-secondary">prppjf</h2>
-    </>
+    <Routes>
+      <Route path="/" element={<Landingpage />} />
+      <Route path="/sign-in" element={<SignIn />} />
+    </Routes>
   );
 }
 

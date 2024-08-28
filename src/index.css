@@ -16,5 +16,6 @@
 @layer components {
   .test {
     font-size: 80px;
+    background-color: red;
   }
 }

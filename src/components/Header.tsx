@@ -1,3 +1,7 @@
 export const Header = () => {
-  return <div>Header</div>;
+  return (
+    <header className="text-[38px] font-lobster text-secondary font-bold ">
+      Dress Smart
+    </header>
+  );
 };

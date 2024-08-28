@@ -3,7 +3,7 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      fontFamily: {},
+      fontFamily: { lobster: ["Lobster", "sans-serif"] },
       colors: {
         primary: "#ED67E2",
         secondary: "#6622CC",
