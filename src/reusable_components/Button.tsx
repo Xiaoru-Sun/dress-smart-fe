@@ -1,16 +1,22 @@
 type buttonProps = {
   children: string;
   styleName: string;
-  handleClick: () => void;
+  isDisabled: boolean;
+  handleClick?: () => void;
 };
 
 const Button = ({
   children,
   styleName,
+  isDisabled,
   handleClick,
 }: buttonProps): JSX.Element => {
   return (
-    <button className={`${styleName}`} onClick={handleClick}>
+    <button
+      className={`${styleName}`}
+      onClick={handleClick}
+      disabled={isDisabled}
+    >
       {children}
     </button>
   );

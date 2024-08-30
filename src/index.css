@@ -14,7 +14,8 @@
   border: 3px solid #f1f1f1;
 }
 @layer components {
-  .mainButton {
+  .mainButton,
+  .mainButtonDisabled {
     background-color: #ed67e2;
     width: 300px;
     height: 40px;
@@ -22,10 +23,21 @@
     font-size: 16px;
     border-radius: 8px;
     margin-top: 3rem;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+  }
+  .mainButtonDisabled {
+    background-color: #f598ed;
+    color: white;
   }
   .largeLogo {
     width: 245px;
     height: 381px;
     margin-top: 3rem;
+  }
+  .mediumLogo {
+    width: 190px;
+    height: 260px;
+    margin-top: 2rem;
   }
 }
