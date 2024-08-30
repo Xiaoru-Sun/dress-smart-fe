@@ -2,12 +2,13 @@ type InputProps = {
   labelName: string;
   inputType: string;
   inputPlaceholder: string;
-  inputName: string;
+  inputName?: string;
   inputValue: string;
-  isValidated: boolean | null;
+  isValidated?: boolean | null;
   validationMessage: string;
-  handleChange: (value: string, name: string) => void;
-  handleOnBlur: () => void;
+  handleChange?: (value: string, name: string) => void;
+  handleOnBlur?: () => void;
+  isDisable?: boolean;
 };
 
 const Input = ({
@@ -20,6 +21,7 @@ const Input = ({
   validationMessage,
   handleChange,
   handleOnBlur,
+  isDisable = false,
 }: InputProps) => {
   return (
     <div className="flex flex-col">
@@ -39,6 +41,7 @@ const Input = ({
         onChange={(e) => handleChange(e.target.value, e.target.name)}
         onBlur={handleOnBlur}
         className={`w-[300px] h-[40px] mt-1 pl-4 border-[3px] rounded-lg border-primary focus:outline-none text-mainFont font-semibold text-[14px] placeholder:text-[14px] placeholder:text-gray-400 placeholder:font-semibold`}
+        disabled={isDisable}
       />
     </div>
   );
