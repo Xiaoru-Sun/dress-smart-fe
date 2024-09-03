@@ -1,16 +1,14 @@
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
-type AppLayoutProp = {
-  children: React.ReactNode;
-  handleSearchOpen: () => void;
-};
-
-const AppLayout = ({ children, handleSearchOpen }: AppLayoutProp) => {
+const AppLayout = () => {
   return (
     <>
       <div>
-        <Navbar handleSearchOpen={handleSearchOpen} />
-        <main className="flex justify-center">{children}</main>
+        <Navbar />
+        <main className="flex justify-center">
+          <Outlet />
+        </main>
       </div>
     </>
   );

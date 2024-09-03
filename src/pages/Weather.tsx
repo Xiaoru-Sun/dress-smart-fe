@@ -1,12 +1,7 @@
-// import { fetchWeatherApi } from "openmeteo";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import MainWeatherCard from "../components/MainWeatherCard";
-import PlaceSearch from "../components/PlaceSearch";
-import WeatherCard from "../components/WeatherCard";
-type WeatherProp = {
-  searchOpen: boolean;
-};
+import MainWeatherDisplay from "../components/MainWeatherDisplay";
+import WeatherList from "../components/WeatherList";
 
 type DailyWeatherProp = {
   time: string;
@@ -16,7 +11,7 @@ type DailyWeatherProp = {
   windspeed_10m_max: number;
 };
 
-const Weather = ({ searchOpen }: WeatherProp) => {
+const Weather = () => {
   const [weatherForecast, setWeatherForecast] = useState([]);
   const [selectedWeatherCard, setSelectedWeatherCard] =
     useState<null | DailyWeatherProp>(null);
@@ -55,29 +50,17 @@ const Weather = ({ searchOpen }: WeatherProp) => {
 
   return (
     <>
-      {searchOpen && <PlaceSearch />}
       {weatherForecast && (
         <div
           className={` relative selection:w-full h-screen flex flex-col items-center justify-start p-4`}
         >
-          {searchOpen && (
-            <div className="fixed top-[44px] inset-0 bg-black bg-opacity-60 z-2" />
-          )}
           {selectedWeatherCard && (
-            <MainWeatherCard selectedWeatherCard={selectedWeatherCard} />
+            <MainWeatherDisplay selectedWeatherCard={selectedWeatherCard} />
           )}
-          {/* <MainWeatherCard selectedWeatherCard={selectedWeatherCard} /> */}
-          <ol className="gap-[10px] flex flex-wrap justify-evenly ">
-            {weatherForecast.map((obj, index) => {
-              return (
-                <WeatherCard
-                  key={index}
-                  obj={obj}
-                  setSelectedWeatherCard={setSelectedWeatherCard}
-                />
-              );
-            })}
-          </ol>
+          <WeatherList
+            weatherForecast={weatherForecast}
+            setSelectedWeatherCard={setSelectedWeatherCard}
+          />
         </div>
       )}
     </>
