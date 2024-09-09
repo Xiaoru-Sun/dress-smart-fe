@@ -8,7 +8,6 @@ import AppLayout from "./layouts/AppLayout";
 import Location from "./pages/Location";
 import { useState } from "react";
 
-
 function App() {
   type PlaceDetails = {
     name: string | null;
@@ -16,12 +15,18 @@ function App() {
     lng: number | null;
   };
 
+  const [isMapOpen, setIsMapOpen] = useState<boolean>(false);
   const defaultPlaceDetails = { name: "", lat: 0, lng: 0 };
   const [placeDetails, setPlaceDetails] = useState(defaultPlaceDetails);
+
   const handlePlace = (place) => {
     setPlaceDetails(place);
   };
   console.log("on APP", placeDetails);
+
+  const handleToggleMap = () => {
+    setIsMapOpen(!isMapOpen);
+  };
 
   return (
     <Routes>
@@ -29,10 +34,19 @@ function App() {
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/details" element={<Details />} />
       <Route path="/sign-up" element={<SignUp />} />
-      <Route element={<AppLayout />}>
+      <Route element={<AppLayout onHandleToggleMap={handleToggleMap} />}>
         <Route
           path="/weather"
-          element={<Weather placeDetails={placeDetails} />}
+          element={
+            <Weather
+              placeDetails={placeDetails}
+              onHandleToggleMap={handleToggleMap}
+              setIsMapOpen={setIsMapOpen}
+              isMapOpen={isMapOpen}
+              onHandlePlace={handlePlace}
+              onSetPlaceDetails={setPlaceDetails}
+            />
+          }
         />
         <Route
           path="/location"
