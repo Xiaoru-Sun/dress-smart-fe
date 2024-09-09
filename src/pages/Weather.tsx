@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import MainWeatherDisplay from "../components/MainWeatherDisplay";
 import WeatherList from "../components/WeatherList";
+import Modal from "../reusable_components/Modal";
+import Map from "../components/Map";
 
 type DailyWeatherProp = {
   time: string;
@@ -16,7 +18,24 @@ type PlaceDetails = {
   lat: number;
   lng: number;
 };
-const Weather = ({ placeDetails }: PlaceDetails) => {
+
+type WeatherProp = {
+  placeDetails: PlaceDetails;
+  isMapOpen: boolean;
+  onHandleToggleMap: () => void;
+  setIsMapOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onHandlePlace: () => void;
+  onSetPlaceDetails: () => void;
+};
+
+const Weather = ({
+  placeDetails,
+  isMapOpen,
+  onHandleToggleMap,
+  setIsMapOpen,
+  onHandlePlace,
+  onSetPlaceDetails,
+}: WeatherProp) => {
   const [weatherForecast, setWeatherForecast] = useState([]);
   const [selectedWeatherCard, setSelectedWeatherCard] =
     useState<null | DailyWeatherProp>(null);
@@ -59,12 +78,23 @@ const Weather = ({ placeDetails }: PlaceDetails) => {
         <div
           className={` relative selection:w-full h-screen flex flex-col items-center justify-start p-4`}
         >
+          {isMapOpen && (
+            <Modal>
+              <Map
+                onHandleToggleMap={onHandleToggleMap}
+                setIsMapOpen={setIsMapOpen}
+                onHandlePlace={onHandlePlace}
+                onSetPlaceDetails={onSetPlaceDetails}
+              />
+            </Modal>
+          )}
           {selectedWeatherCard && (
             <MainWeatherDisplay
               selectedWeatherCard={selectedWeatherCard}
               name={placeDetails.name}
             />
           )}
+
           <WeatherList
             weatherForecast={weatherForecast}
             setSelectedWeatherCard={setSelectedWeatherCard}

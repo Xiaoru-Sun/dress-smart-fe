@@ -10,7 +10,7 @@ import { useState } from "react";
 // const googleMapApi = import.meta.env.VITE_GOOGLE_MAPS_API_KEYS;
 // const googleMapApi = process.env.VITE_GOOGLE_MAPS_API_KEYS;
 */
-const Map = ({ onHandlePlace, onSetState }) => {
+const Map = ({ onHandlePlace, onSetPlaceDetails, setIsMapOpen }) => {
   const [location, setLocation] = useState({ lat: 51.66, lng: -0.397 });
   const [autocomplete, setAutocomplete] = useState(null);
 
@@ -21,7 +21,7 @@ const Map = ({ onHandlePlace, onSetState }) => {
     console.log(e, e.latLng.lat(), e.latLng.lng());
     const lat = e.latLng.lat();
     const lng = e.latLng.lng();
-    onSetState((obj) => ({ ...obj, lat, lng }));
+    onSetPlaceDetails((obj) => ({ ...obj, lat, lng }));
 
     const geoCoder = new window.google.maps.Geocoder();
     geoCoder.geocode({ location: e.latLng }, (results, status) => {
@@ -47,10 +47,11 @@ const Map = ({ onHandlePlace, onSetState }) => {
             place = component.long_name;
           }
         }
-        onSetState((obj) => ({
+        onSetPlaceDetails((obj) => ({
           ...obj,
           name: place,
         }));
+        setIsMapOpen(false);
       }
     });
   };
@@ -64,10 +65,11 @@ const Map = ({ onHandlePlace, onSetState }) => {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
       });
+      setIsMapOpen(false);
     }
   };
   return (
-    <div className="w-full h-screen flex flex-col p-4">
+    <div className="w-full h-screen flex flex-col p-4 bg-white">
       <LoadScript
         googleMapsApiKey="AIzaSyBN6r1pqHllV7TY6js8wW2xNqYLFQgOdk0"
         libraries={["places"]}
