@@ -11,14 +11,19 @@ type DailyWeatherProp = {
   windspeed_10m_max: number;
 };
 
-const Weather = () => {
+type PlaceDetails = {
+  name: string;
+  lat: number;
+  lng: number;
+};
+const Weather = ({ placeDetails }: PlaceDetails) => {
   const [weatherForecast, setWeatherForecast] = useState([]);
   const [selectedWeatherCard, setSelectedWeatherCard] =
     useState<null | DailyWeatherProp>(null);
 
   const params = {
-    latitude: 52.52,
-    longitude: 13.41,
+    latitude: placeDetails.lat,
+    longitude: placeDetails.lng,
     hourly: "temperature_2m",
   };
 
@@ -55,7 +60,10 @@ const Weather = () => {
           className={` relative selection:w-full h-screen flex flex-col items-center justify-start p-4`}
         >
           {selectedWeatherCard && (
-            <MainWeatherDisplay selectedWeatherCard={selectedWeatherCard} />
+            <MainWeatherDisplay
+              selectedWeatherCard={selectedWeatherCard}
+              name={placeDetails.name}
+            />
           )}
           <WeatherList
             weatherForecast={weatherForecast}

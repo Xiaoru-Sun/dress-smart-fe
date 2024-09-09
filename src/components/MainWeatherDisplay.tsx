@@ -10,9 +10,10 @@ type Prop = {
     temperature_2m_min: number;
     windspeed_10m_max: number;
   };
+  name: string;
 };
 
-const MainWeatherDisplay = ({ selectedWeatherCard }: Prop) => {
+const MainWeatherDisplay = ({ selectedWeatherCard, name }: Prop) => {
   const {
     weathercode,
     time,
@@ -35,7 +36,7 @@ const MainWeatherDisplay = ({ selectedWeatherCard }: Prop) => {
           <WeatherCard obj={selectedWeatherCard} tempBgColour="bg-secondary" />
         </div>
         <div className="flex flex-col p-4 pb-0 pr-2 pl-6 w-[82%]">
-          <h2 className="text-[16px] text-white">London</h2>
+          <h2 className="text-[16px] text-white">{name}</h2>
           <p className="text-[14px] text-secondary font-semibold mt-1">
             {day} {formattedDate}
           </p>
