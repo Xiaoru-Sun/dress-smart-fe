@@ -2,7 +2,7 @@ import CategoryCard from "../components/CategoryCard";
 
 const Wardrobe = () => {
   const wardrobeDummyData = [
-    { id: 1, category: "Coat" },
+    { id: 1, category: "Coats" },
     { id: 2, category: "Dresses" },
     { id: 3, category: "Skirts" },
     { id: 4, category: "Trousers" },
@@ -11,14 +11,15 @@ const Wardrobe = () => {
     { id: 7, category: "Accessories" },
   ];
   return (
-    <div>
-      <h1 className="text-[16px] text-secondary font-semibold mt-4 ">
-        Wardrobe
-      </h1>
-      <div>
+    <div className="flex flex-col items-center justify-center w-full h-screen">
+      <h1 className="text-[16px] text-secondary font-semibold">Wardrobe</h1>
+      <div className="h-[87%] flex flex-col w-[85%] justify-evenly ">
         {wardrobeDummyData.map((categoryObject, index) => {
           return (
-            <div key={index}>
+            <div
+              className="h-[11%] mt-1 mb-1 rounded-lg border-secondary border-solid border-2 flex items-center"
+              key={index}
+            >
               <CategoryCard categoryObject={categoryObject} />
             </div>
           );
