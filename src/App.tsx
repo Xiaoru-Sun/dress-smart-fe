@@ -7,6 +7,7 @@ import Details from "./pages/Details";
 import AppLayout from "./layouts/AppLayout";
 import Location from "./pages/Location";
 import { useState } from "react";
+import Wardrobe from "./pages/Wardrobe";
 
 function App() {
   type PlaceDetails = {
@@ -57,6 +58,7 @@ function App() {
             />
           }
         />
+        <Route path="/wardrobe" element={<Wardrobe />} />
       </Route>
     </Routes>
   );
