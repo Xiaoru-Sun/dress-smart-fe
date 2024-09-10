@@ -5,7 +5,10 @@ type CategoryCardProp = {
 const CategoryCard = ({ categoryObject }: CategoryCardProp) => {
   return (
     <>
-      <div className="ml-4">{categoryObject.category}</div>
+      <div className="ml-4 text-secondary font-semibold">
+        {categoryObject.category}
+      </div>
+      <div></div>
     </>
   );
 };
