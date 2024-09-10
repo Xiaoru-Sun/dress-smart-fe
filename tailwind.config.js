@@ -14,6 +14,6 @@ export default {
         validationTrue: "#2BA84A",
       },
     },
+    plugins: [],
   },
-  plugins: [],
 };

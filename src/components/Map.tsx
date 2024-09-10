@@ -4,8 +4,8 @@ import {
   LoadScript,
   Autocomplete,
 } from "@react-google-maps/api";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import "../autocomplete.css";
 /* google api key not in .env
 // const googleMapApi = import.meta.env.VITE_GOOGLE_MAPS_API_KEYS;
 // const googleMapApi = process.env.VITE_GOOGLE_MAPS_API_KEYS;
@@ -68,25 +68,37 @@ const Map = ({ onHandlePlace, onSetPlaceDetails, setIsMapOpen }) => {
       setIsMapOpen(false);
     }
   };
+
   return (
-    <div className="w-full h-screen flex flex-col p-4 bg-white">
+    <div className="w-full h-screen flex flex-col items-center p-4">
       <LoadScript
         googleMapsApiKey="AIzaSyBN6r1pqHllV7TY6js8wW2xNqYLFQgOdk0"
         libraries={["places"]}
       >
-        <h1>Choose location...</h1>
+        <h1 className="text-[16px] text-secondary font-semibold mr-auto">
+          Choose location...
+        </h1>
         <Autocomplete
           onLoad={onLoad}
           onPlaceChanged={onPlaceChanged}
           options={{ fields: ["name", "geometry", "formatted_address"] }}
         >
-          <input placeholder="Enter your location" />
+          <input
+            placeholder="Enter your location"
+            className="w-[380px] h-[50px] border-2 mt-4 rounded-lg border-primary outline-none pl-4 "
+          />
         </Autocomplete>
-        <h1>Find your location on the map</h1>
+        <h1 className="mt-8 text-[16px] text-secondary font-semibold mr-auto">
+          Find your location...
+        </h1>
         <GoogleMap
           zoom={10}
           center={location}
-          mapContainerStyle={{ width: "390px", height: "390px" }}
+          mapContainerStyle={{
+            width: "100%",
+            height: "460px",
+            marginTop: "16px",
+          }}
           onClick={handleMapClick}
         >
           <Marker position={location} draggable={true} />

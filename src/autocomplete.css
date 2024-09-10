@@ -1,0 +1,13 @@
+.pac-container {
+  @apply bg-white border border-pink-300 rounded-bl-lg rounded-br-lg shadow-lg z-50;
+  /* @apply w-[380px] h-[50px] border-2 mt-4 rounded-lg border-primary outline-none pl-4; */
+}
+.pac-item {
+  @apply p-3 text-sm border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition duration-200 ease-in-out flex items-center;
+}
+.pac-item .pac-matched {
+  @apply font-bold text-secondary;
+}
+.pac-item .pac-item-query {
+  @apply text-secondary;
+}
