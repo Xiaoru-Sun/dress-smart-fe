@@ -1,59 +1,68 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 
 type CategoryCardProp = {
   categoryObject: { category: string; subCategory: string[] };
+  handleToggle: () => void;
+  isToggled: boolean;
 };
 
-const CategoryCard = ({ categoryObject }: CategoryCardProp) => {
-  const [toggled, setToggled] = useState<boolean>(false);
-  const handleToggle = () => {
-    setToggled(!toggled);
-  };
+type Ref = HTMLButtonElement;
 
-  const dropDownRef = useRef(null);
+const CategoryCard = forwardRef<Ref, CategoryCardProp>(function (
+  { categoryObject, handleToggle, isToggled }: CategoryCardProp,
+  ref
+) {
+  {
+    // const [toggled, setToggled] = useState<boolean>(false);
+    // const handleToggle = () => {
+    //   setToggled(!toggled);
+    // };
 
-  useEffect(() => {
-    const handler = (e) => {
-      console.log("target", e.target);
-      if (dropDownRef.current) {
-        if (!dropDownRef.current.contains(e.target)) {
-          setToggled(false);
-        }
-      }
-    };
-    document.addEventListener("click", handler);
-    return () => {
-      document.removeEventListener("click", handler);
-    };
-  }, []);
+    // const dropDownRef = useRef(null);
 
-  return (
-    <>
-      <div
-        className="w-[80%] flex flex-col items-start justify-center"
-        ref={dropDownRef}
-      >
-        <button
-          className="w-full h-full flex justify-between ml-4 text-secondary font-semibold"
-          onClick={handleToggle}
+    // useEffect(() => {
+    //   const handler = (e) => {
+    //     console.log("target", e.target);
+    //     if (dropDownRef.current) {
+    //       if (!dropDownRef.current.contains(e.target)) {
+    //         setToggled(false);
+    //       }
+    //     }
+    //   };
+    //   document.addEventListener("click", handler);
+    //   return () => {
+    //     document.removeEventListener("click", handler);
+    //   };
+    // }, []);
+
+    return (
+      <>
+        <div
+          className="w-[80%] flex flex-col items-start justify-center"
+          ref={ref}
         >
-          <span> {categoryObject.category}</span>
-          <span>{toggled ? "-" : "+"}</span>
-        </button>
-      </div>
-
-      {categoryObject.subCategory.map((subCategoryObject, index) => {
-        return (
-          <div
-            className={`text-primary ${toggled ? "visible" : "hidden"}`}
-            key={index}
+          <button
+            className="w-full h-full flex justify-between ml-4 text-secondary font-semibold"
+            onClick={handleToggle}
           >
-            {subCategoryObject} {categoryObject.category}
-          </div>
-        );
-      })}
-    </>
-  );
-};
+            <span> {categoryObject.category}</span>
+            <span>{isToggled ? "-" : "+"}</span>
+          </button>
+        </div>
+
+        {categoryObject.subCategory.map((subCategoryObject, index) => {
+          return (
+            <div
+              className={`text-primary ${isToggled ? "visible" : "hidden"}`}
+              key={index}
+            >
+              {subCategoryObject} {categoryObject.category}
+            </div>
+          );
+        })}
+      </>
+    );
+  }
+});
 
 export default CategoryCard;

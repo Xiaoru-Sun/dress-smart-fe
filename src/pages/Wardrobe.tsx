@@ -1,23 +1,34 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import CategoryCard from "../components/CategoryCard";
 
 const Wardrobe = () => {
-  const dropDownRef = useRef(null);
+  const [toggledCategoryCardIndex, setToggledCategoryCardIndex] = useState<
+    null | number
+  >(null);
 
-  const handler = (e) => {
-    console.log("target", e.target);
-    if (dropDownRef.current) {
-      if (!dropDownRef.current.contains(e.target)) {
-        setToggled(false);
-      }
-    }
+  const handleToggle = (index: number) => {
+    setToggledCategoryCardIndex(
+      toggledCategoryCardIndex === index ? null : index
+    );
   };
+
+  const dropDownRefs = useRef([]);
   useEffect(() => {
-    document.addEventListener("click", handler);
-    return () => {
-      document.removeEventListener("click", handler);
+    const handleClickOutside = (e) => {
+      if (toggledCategoryCardIndex !== null) {
+        const currentDropdownRef =
+          dropDownRefs.current[toggledCategoryCardIndex];
+        if (currentDropdownRef && !currentDropdownRef.contains(e.target)) {
+          setToggledCategoryCardIndex(null);
+        }
+      }
     };
-  }, []);
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  });
+  console.log(toggledCategoryCardIndex);
 
   const wardrobeDummyData = [
     {
@@ -43,10 +54,18 @@ const Wardrobe = () => {
         {wardrobeDummyData.map((categoryObject, index) => {
           return (
             <div
-              className="h-[10%] rounded-lg border-secondary border-solid border-2 flex items-center"
+              className="h-[10%] rounded-2xl border-secondary border-solid border-2 flex items-center"
               key={index}
             >
-              <CategoryCard categoryObject={categoryObject} />
+              <CategoryCard
+                categoryObject={categoryObject}
+                handleToggle={() => {
+                  console.log("log category index", index);
+                  handleToggle(index);
+                }}
+                ref={(instance) => (dropDownRefs.current[index] = instance)}
+                isToggled={index === toggledCategoryCardIndex}
+              />
             </div>
           );
         })}
