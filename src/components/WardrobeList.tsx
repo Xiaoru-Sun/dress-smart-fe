@@ -1,22 +1,20 @@
-import CategoryCard from "./CategoryCard";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 type categoryObject = { category: string; subCategory: string[] };
 type WardrobeProp = { wardrobeData: categoryObject[] };
-let IndexProp: number;
 
 const WardrobeList = ({ wardrobeData }: WardrobeProp) => {
-  const [categoryIndex, setCategoryIndex] = useState(null);
-  const [subCategoryIndex, setSubcategoryIndex] = useState(null);
+  const [categoryIndex, setCategoryIndex] = useState<number | null>(null);
+  const [subCategoryIndex, setSubcategoryIndex] = useState<number | null>(null);
 
-  const handleClickCategory = (index) => {
+  const handleClickCategory = (index: number | null) => {
     setCategoryIndex((categoryIndex) =>
       index === categoryIndex ? null : index
     );
     setSubcategoryIndex(null);
   };
 
-  const handleSubCategoryIndex = (subIndex) => {
+  const handleSubCategoryIndex = (subIndex: number | null) => {
     setSubcategoryIndex((subCategoryIndex) =>
       subCategoryIndex === subIndex ? null : subIndex
     );
