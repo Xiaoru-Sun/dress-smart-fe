@@ -3,55 +3,70 @@ import { useEffect, useRef, useState } from "react";
 
 type categoryObject = { category: string; subCategory: string[] };
 type WardrobeProp = { wardrobeData: categoryObject[] };
+let IndexProp: number;
 
 const WardrobeList = ({ wardrobeData }: WardrobeProp) => {
-  const [toggledCategoryCardIndex, setToggledCategoryCardIndex] = useState<
-    null | number
-  >(null);
+  const [categoryIndex, setCategoryIndex] = useState(null);
+  const [subCategoryIndex, setSubcategoryIndex] = useState(null);
 
-  const handleToggle = (index: number) => {
-    setToggledCategoryCardIndex(
-      toggledCategoryCardIndex === index ? null : index
+  const handleClickCategory = (index) => {
+    setCategoryIndex((categoryIndex) =>
+      index === categoryIndex ? null : index
+    );
+    setSubcategoryIndex(null);
+  };
+
+  const handleSubCategoryIndex = (subIndex) => {
+    setSubcategoryIndex((subCategoryIndex) =>
+      subCategoryIndex === subIndex ? null : subIndex
     );
   };
 
-  const dropDownRefs = useRef([]);
-
-  useEffect(() => {
-    const handleClickOutside = (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(e.target);
-      if (toggledCategoryCardIndex !== null) {
-        const currentDropdownRef =
-          dropDownRefs.current[toggledCategoryCardIndex];
-        if (currentDropdownRef && !currentDropdownRef.contains(e.target)) {
-          setToggledCategoryCardIndex(null);
-        }
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  });
-  console.log(toggledCategoryCardIndex);
-
   return (
-    <div className="h-[85%] w-[85%] flex flex-col justify-evenly">
-      {wardrobeData.map((categoryObject, index) => {
-        return (
-          <CategoryCard
-            categoryObject={categoryObject}
-            handleToggle={() => {
-              console.log("log category index", index);
-              handleToggle(index);
-            }}
-            ref={(instance) => (dropDownRefs.current[index] = instance)}
-            isToggled={index === toggledCategoryCardIndex}
-            index={index}
-          />
-        );
-      })}
-    </div>
+    <>
+      <div className="h-[85%] w-[85%] flex flex-col justify-evenly">
+        {wardrobeData.map((categoryObject, index) => (
+          <div key={index}>
+            <div className="flex items-center justify-center rounded-xl border-secondary border-solid border-2 p-3">
+              <button
+                className="w-[80%] h-full flex justify-between ml-4 text-secondary font-semibold"
+                onClick={() => {
+                  console.log(index);
+                  handleClickCategory(index);
+                }}
+              >
+                <span> {categoryObject.category}</span>
+                <span>{index === categoryIndex ? "-" : "+"}</span>
+              </button>
+            </div>
+            <div>
+              {categoryObject.subCategory.map((subCategory, subIndex) => (
+                <div
+                  key={subIndex}
+                  className={`${
+                    index === categoryIndex ? "visible" : "hidden"
+                  }`}
+                >
+                  <div className="flex items-center justify-center rounded-xl border-primary border-solid border-2 p-3">
+                    <button
+                      className="w-[80%] h-full flex justify-between ml-4 text-secondary font-semibold"
+                      onClick={() => {
+                        handleSubCategoryIndex(subIndex);
+                      }}
+                    >
+                      <span>
+                        {subCategory} {categoryObject.category}{" "}
+                      </span>
+                      <span>{subCategoryIndex === subIndex ? "-" : "+"}</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
