@@ -19,6 +19,7 @@ const WardrobeList = ({ wardrobeData }: WardrobeProp) => {
 
   useEffect(() => {
     const handleClickOutside = (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log(e.target);
       if (toggledCategoryCardIndex !== null) {
         const currentDropdownRef =
           dropDownRefs.current[toggledCategoryCardIndex];
@@ -35,23 +36,19 @@ const WardrobeList = ({ wardrobeData }: WardrobeProp) => {
   console.log(toggledCategoryCardIndex);
 
   return (
-    <div className="h-[85%] w-[85%] flex flex-col justify-evenly ">
+    <div className="h-[85%] w-[85%] flex flex-col justify-evenly">
       {wardrobeData.map((categoryObject, index) => {
         return (
-          <div
-            className="h-[10%] rounded-2xl border-secondary border-solid border-2 flex items-center"
-            key={index}
-          >
-            <CategoryCard
-              categoryObject={categoryObject}
-              handleToggle={() => {
-                console.log("log category index", index);
-                handleToggle(index);
-              }}
-              ref={(instance) => (dropDownRefs.current[index] = instance)}
-              isToggled={index === toggledCategoryCardIndex}
-            />
-          </div>
+          <CategoryCard
+            categoryObject={categoryObject}
+            handleToggle={() => {
+              console.log("log category index", index);
+              handleToggle(index);
+            }}
+            ref={(instance) => (dropDownRefs.current[index] = instance)}
+            isToggled={index === toggledCategoryCardIndex}
+            index={index}
+          />
         );
       })}
     </div>
