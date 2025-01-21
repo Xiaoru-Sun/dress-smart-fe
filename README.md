@@ -2,10 +2,11 @@
 ## Dress Smart
 A user-friendly app that combines real-time weather forecasting with personalised wardrobe suggestions
 
-## __Link To the Hosted Version__
-[camille-dpp.netlify.app](https://camille-dpp.netlify.app/)
+## Introduction
+Dress Smart helps you decide what to wear based on current weather conditions. The app provides wardrobe recommendations tailored to the weather forecast, ensuring you always dress appropriately for the day ahead.
 
-## __Introduction__:
+### Collaborators
+This app was developed in collaboration with [Lee Coray](https://github.com/LeeConroy1977). Working together, we combined our skills and expertise to create an intuitive, user-friendly experience.
 
 ## Getting Started
 Before you can run or contribute to this project, make sure you have node installed
@@ -22,7 +23,7 @@ Before you can run or contribute to this project, make sure you have node instal
    ```
 2. Navigate to the project folder :
    ```sh
-   cd my-portfolio
+   cd dress-smart-fe
    ```
 3. Install dependencies:
    ```sh
